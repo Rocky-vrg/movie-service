@@ -1,0 +1,54 @@
+version: '3.8'
+services:
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway-service
+    ports:
+      - "443:443"
+    volumes:
+      - ./api-gateway:/usr/src/app:ro
+      - /usr/src/app/node_modules
+    networks:
+      - microservices-network
+    depends_on:
+      - movie-service
+      - auth-services
+      - sample-service 
+
+
+  movie-service:
+    build: ./movie-service
+    container_name: movie-service
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./movie-service:/usr/src/app:ro
+      - /usr/src/app/node_modules
+    networks:
+      - microservices-network
+
+  auth-services:
+    build: ./auth-services
+    container_name: auth-services
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./auth-services:/usr/src/app:ro
+      - /usr/src/app/node_modules
+    networks:
+      - microservices-network
+
+  sample-service:
+    build: ./sample-services
+    container_name: sample-service
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./sample-service:/usr/src/app:ro
+      - /usr/src/app/node_modules
+    networks:
+      - microservices-network    
+
+networks:
+  microservices-network:
+    driver: bridge

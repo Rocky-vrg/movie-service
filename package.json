@@ -1,0 +1,55 @@
+{
+  "name": "movie-api",
+  "version": "1.0.0",
+  "description": "Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications. ​",
+  "main": "index.js",
+  "directories": {
+    "test": "./api-gateway-service"
+  },
+  "scripts": {
+    "on": "pm2 start ecosystem.config.js ",
+    "off": " pm2 stop all",
+    "list": "pm2 list",
+    "test:watch": "jest --coverage -i --watchAll",
+    "test": "jest",
+    "lint": " eslint . --ext .js ",
+    "prettier:fix": "prettier --write . --ext .js",
+    "prettier:check": "prettier --ext .js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^28.8.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^9.1.5",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run prettier:fix",
+      "npm run lint",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm run test"
+    }
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "mockingoose": "^2.16.2",
+    "supertest": "^7.0.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
